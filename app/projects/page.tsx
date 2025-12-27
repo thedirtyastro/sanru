@@ -1,5 +1,7 @@
+import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CTA from "@/components/CTA";
 
 const projects = [
   {
@@ -8,6 +10,12 @@ const projects = [
     description: "A modern, responsive e-commerce website with seamless checkout experience and beautiful product showcases.",
     tags: ["Website", "E-Commerce", "UI/UX Design"],
     image: "/project-1.jpg",
+    sampleImages: [
+      "/project-1.jpg",
+      "/project-2.jpg",
+      "/project-3.jpg",
+    ],
+    link: "https://example.com/ecommerce",
   },
   {
     id: 2,
@@ -15,6 +23,12 @@ const projects = [
     description: "Professional brand photography that captures the essence and personality of the business.",
     tags: ["Photography", "Branding", "Content"],
     image: "/project-2.jpg",
+    sampleImages: [
+      "/project-2.jpg",
+      "/project-3.jpg",
+      "/project-4.jpg",
+    ],
+    link: "https://example.com/photography",
   },
   {
     id: 3,
@@ -22,6 +36,12 @@ const projects = [
     description: "Comprehensive social media strategy that increased engagement by 300% and grew followers organically.",
     tags: ["Social Media", "Strategy", "Marketing"],
     image: "/project-3.jpg",
+    sampleImages: [
+      "/project-3.jpg",
+      "/project-4.jpg",
+      "/project-5.jpg",
+    ],
+    link: "https://example.com/social-media",
   },
   {
     id: 4,
@@ -29,6 +49,12 @@ const projects = [
     description: "Complete website redesign with modern aesthetics, improved user experience, and faster load times.",
     tags: ["Website", "Redesign", "Development"],
     image: "/project-4.jpg",
+    sampleImages: [
+      "/project-4.jpg",
+      "/project-5.jpg",
+      "/project-6.jpg",
+    ],
+    link: "https://example.com/redesign",
   },
   {
     id: 5,
@@ -36,6 +62,12 @@ const projects = [
     description: "High-quality product photography that showcases products in their best light, increasing conversion rates.",
     tags: ["Photography", "Product", "E-Commerce"],
     image: "/project-5.jpg",
+    sampleImages: [
+      "/project-5.jpg",
+      "/project-6.jpg",
+      "/project-7.jpg",
+    ],
+    link: "https://example.com/product-photo",
   },
   {
     id: 6,
@@ -43,6 +75,12 @@ const projects = [
     description: "A stunning portfolio website for a creative agency featuring smooth animations and interactive elements.",
     tags: ["Website", "Portfolio", "Creative"],
     image: "/project-6.jpg",
+    sampleImages: [
+      "/project-6.jpg",
+      "/project-7.jpg",
+      "/project-8.jpg",
+    ],
+    link: "https://example.com/agency",
   },
   {
     id: 7,
@@ -50,6 +88,12 @@ const projects = [
     description: "End-to-end brand campaign including photography, social media content, and website integration.",
     tags: ["Photography", "Branding", "Social Media", "Website"],
     image: "/project-7.jpg",
+    sampleImages: [
+      "/project-7.jpg",
+      "/project-8.jpg",
+      "/project-9.jpg",
+    ],
+    link: "https://example.com/lifestyle",
   },
   {
     id: 8,
@@ -57,6 +101,12 @@ const projects = [
     description: "Beautiful restaurant website with online menu, reservation system, and mouth-watering food photography.",
     tags: ["Website", "Photography", "Food"],
     image: "/project-8.jpg",
+    sampleImages: [
+      "/project-8.jpg",
+      "/project-9.jpg",
+      "/project-1.jpg",
+    ],
+    link: "https://example.com/restaurant",
   },
   {
     id: 9,
@@ -64,6 +114,12 @@ const projects = [
     description: "Conversion-optimized landing page for a tech startup with compelling copy and modern design.",
     tags: ["Website", "Landing Page", "Conversion"],
     image: "/project-9.jpg",
+    sampleImages: [
+      "/project-9.jpg",
+      "/project-1.jpg",
+      "/project-2.jpg",
+    ],
+    link: "https://example.com/startup",
   },
 ];
 
@@ -84,11 +140,28 @@ export default function ProjectsPage() {
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project) => (
-              <div
+              <Link
                 key={project.id}
-                className="glass rounded-2xl overflow-hidden hover:bg-white/15 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2 group cursor-pointer"
+                href={`/projects/${project.id}`}
+                className="glass rounded-2xl overflow-hidden hover:bg-white/15 transition-all duration-300 shadow-sm hover:shadow-xl hover:-translate-y-2 group cursor-pointer block"
               >
                 <div className="h-64 bg-gray-800 relative overflow-hidden">
+                  {/* Sample Images Gallery Preview */}
+                  <div className="absolute inset-0 flex">
+                    {project.sampleImages.slice(0, 3).map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="flex-1 bg-gradient-to-br from-gray-700 via-gray-800 to-gray-900 relative"
+                        style={{
+                          backgroundImage: `url(${img})`,
+                          backgroundSize: "cover",
+                          backgroundPosition: "center",
+                        }}
+                      >
+                        <div className="absolute inset-0 bg-black/40"></div>
+                      </div>
+                    ))}
+                  </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                   <div className="absolute bottom-4 right-4 w-10 h-10 glass-dark rounded-full flex items-center justify-center text-white opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -114,11 +187,12 @@ export default function ProjectsPage() {
                     {project.description}
                   </p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </div>
       </section>
+      <CTA />
       <Footer />
     </main>
   );
